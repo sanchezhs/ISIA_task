@@ -48,17 +48,17 @@ public class Matriz {
         return matrizResultante; 
     } 
 
-    public static Matriz invertirMatriz(Matriz a) throws DimensionesIncompatibles { 
-        int i, j, filasA, columnasA; 
-        filasA = a.getDimension().height; 
-        columnasA = a.getDimension().width; 
-        Matriz matrizResultante = new Matriz(filasA, columnasA, false);
-        for (j = 0; j < filasA; j++) { 
-            for (i = 0; i < columnasA; i++) { 
-                matrizResultante.datos[i][j] = -a.datos[i][j]; 
-            } 
-        } 
-        return matrizResultante; 
+    public static Matriz transponerMatriz(Matriz a) {
+        int filasA = a.getDimension().height;
+        int columnasA = a.getDimension().width;
+        Matriz matrizResultante = new Matriz(columnasA, filasA, false); 
+        
+        for (int j = 0; j < filasA; j++) {
+            for (int i = 0; i < columnasA; i++) {
+                matrizResultante.datos[i][j] = a.datos[j][i];
+            }
+        }
+        return matrizResultante;
     }
 
     @Override
