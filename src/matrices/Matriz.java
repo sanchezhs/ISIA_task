@@ -26,6 +26,15 @@ public class Matriz {
                     datos[i][j] = rnd.nextInt(100);
         }
     }
+
+    public int[][] getDatos() {
+        return datos;
+    }
+
+    public void setDatos(int[][] nuevosDatos) {
+        datos = nuevosDatos;
+    }
+
     public Matriz(Dimension d, boolean inicializarAleatorio){
         this(d.height, d.width, inicializarAleatorio);
     }
@@ -49,19 +58,26 @@ public class Matriz {
     } 
 
     public static Matriz multiplicarDosMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles { 
-        if(a.getDimension().width != b.getDimension().height) throw new DimensionesIncompatibles("La multiplicación de matrices requiere que el número de columnas de la primera matriz sea igual al número de filas de la segunda matriz");        
-        int i, j, k, filasA, columnasA, columnasB; 
-        filasA = a.getDimension().height; 
-        columnasA = a.getDimension().width; 
-        columnasB = b.getDimension().width; 
-        Matriz matrizResultante = new Matriz(columnasB, filasA, false);
-        for (j = 0; j < filasA; j++) { 
-            for (i = 0; i < columnasB; i++) { 
-                for (k = 0; k < columnasA; k++) { 
-                    matrizResultante.datos[i][j] += a.datos[k][j] * b.datos[i][k]; 
+        if (a.getDimension().width != b.getDimension().height) {
+            throw new DimensionesIncompatibles(
+                "La multiplicación de matrices requiere que el número de columnas de la primera matriz sea igual al número de filas de la segunda matriz"
+            );
+        }
+
+        int filasA = a.getDimension().height; 
+        int columnasA = a.getDimension().width; 
+        int columnasB = b.getDimension().width; 
+        
+        Matriz matrizResultante = new Matriz(filasA, columnasB, false);
+
+        for (int i = 0; i < filasA; i++) { 
+            for (int j = 0; j < columnasB; j++) { 
+                for (int k = 0; k < columnasA; k++) { 
+                    matrizResultante.datos[i][j] += a.datos[i][k] * b.datos[k][j]; 
                 } 
             } 
-        } 
+        }
+
         return matrizResultante; 
     }
 
